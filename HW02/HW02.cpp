@@ -5,10 +5,10 @@
 using namespace std;
 
 //======================================================================================================
-//ÇÊ¼ö ±â´É
+//í•„ìˆ˜ ê¸°ëŠ¥
 class Animal{
 public:
-    virtual void makeSound()=0; //¼ø¼ö °¡»ó ÇÔ¼ö
+    virtual void makeSound()=0; //ìˆœìˆ˜ ê°€ìƒ í•¨ìˆ˜
     ~Animal(){};
 };
 class Dog: public Animal{
@@ -28,46 +28,46 @@ class Cow: public Animal{
     }
 };
 //======================================================================================================
-//µµÀü±â´É
+//ë„ì „ê¸°ëŠ¥
 class Zoo {
 private:
-    Animal* animals[10] = { nullptr, }; // µ¿¹° °´Ã¼¸¦ ÀúÀåÇÏ´Â Æ÷ÀÎÅÍ ¹è¿­ ¼±¾ð ¹× ÃÊ±âÈ­
+    Animal* animals[10] = { nullptr, }; // ë™ë¬¼ ê°ì²´ë¥¼ ì €ìž¥í•˜ëŠ” í¬ì¸í„° ë°°ì—´ ì„ ì–¸ ë° ì´ˆê¸°í™”
     int idx = 0;
 public:
-    // TODO: µ¿¹°À» µ¿¹°¿ø¿¡ Ãß°¡ÇÏ´Â ÇÔ¼ö
-    // - Animal °´Ã¼ÀÇ Æ÷ÀÎÅÍ¸¦ ¹Þ¾Æ Æ÷ÀÎÅÍ ¹è¿­¿¡ ÀúÀåÇÕ´Ï´Ù.
-    // - °°Àº µ¿¹°ÀÌ¶óµµ ¿©·¯ ¹ø Ãß°¡µÉ ¼ö ÀÖ½À´Ï´Ù.
-    // - ÀÔ·Â ¸Å°³º¯¼ö: Animal* (Ãß°¡ÇÒ µ¿¹° °´Ã¼)
-    // - ¹ÝÈ¯°ª: ¾øÀ½
+    // TODO: ë™ë¬¼ì„ ë™ë¬¼ì›ì— ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜
+    // - Animal ê°ì²´ì˜ í¬ì¸í„°ë¥¼ ë°›ì•„ í¬ì¸í„° ë°°ì—´ì— ì €ìž¥í•©ë‹ˆë‹¤.
+    // - ê°™ì€ ë™ë¬¼ì´ë¼ë„ ì—¬ëŸ¬ ë²ˆ ì¶”ê°€ë  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+    // - ìž…ë ¥ ë§¤ê°œë³€ìˆ˜: Animal* (ì¶”ê°€í•  ë™ë¬¼ ê°ì²´)
+    // - ë°˜í™˜ê°’: ì—†ìŒ
     void addAnimal(Animal* animal) {
         if(idx < 10)
             animals[idx++] = animal;
     }
 
-    // TODO: µ¿¹°¿ø¿¡ ÀÖ´Â ¸ðµç µ¿¹°ÀÇ Çàµ¿À» ¼öÇàÇÏ´Â ÇÔ¼ö
-    // - ¸ðµç µ¿¹° °´Ã¼¿¡ ´ëÇØ ¼øÂ÷ÀûÀ¸·Î ¼Ò¸®¸¦ ³»°í ¿òÁ÷ÀÌ´Â µ¿ÀÛÀ» ½ÇÇàÇÕ´Ï´Ù.
-    // - ÀÔ·Â ¸Å°³º¯¼ö: ¾øÀ½
-    // - ¹ÝÈ¯°ª: ¾øÀ½
+    // TODO: ë™ë¬¼ì›ì— ìžˆëŠ” ëª¨ë“  ë™ë¬¼ì˜ í–‰ë™ì„ ìˆ˜í–‰í•˜ëŠ” í•¨ìˆ˜
+    // - ëª¨ë“  ë™ë¬¼ ê°ì²´ì— ëŒ€í•´ ìˆœì°¨ì ìœ¼ë¡œ ì†Œë¦¬ë¥¼ ë‚´ê³  ì›€ì§ì´ëŠ” ë™ìž‘ì„ ì‹¤í–‰í•©ë‹ˆë‹¤.
+    // - ìž…ë ¥ ë§¤ê°œë³€ìˆ˜: ì—†ìŒ
+    // - ë°˜í™˜ê°’: ì—†ìŒ
     void performActions() {
         for(int i=0; i<idx; ++i)
             animals[i]->makeSound();
     }
 
-    // TODO: Zoo ¼Ò¸êÀÚ
-    // - Zoo °´Ã¼°¡ ¼Ò¸êµÉ ¶§, µ¿¹° º¤ÅÍ¿¡ ÀúÀåµÈ ¸ðµç µ¿¹° °´Ã¼ÀÇ ¸Þ¸ð¸®¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
-    // - ¸Þ¸ð¸® ´©¼ö¸¦ ¹æÁöÇÏ±â À§ÇØ µ¿Àû ÇÒ´çµÈ Animal °´Ã¼¸¦ `delete` ÇÕ´Ï´Ù.
-    // - ÀÔ·Â ¸Å°³º¯¼ö: ¾øÀ½
-    // - ¹ÝÈ¯°ª: ¾øÀ½
+    // TODO: Zoo ì†Œë©¸ìž
+    // - Zoo ê°ì²´ê°€ ì†Œë©¸ë  ë•Œ, ë™ë¬¼ ë²¡í„°ì— ì €ìž¥ëœ ëª¨ë“  ë™ë¬¼ ê°ì²´ì˜ ë©”ëª¨ë¦¬ë¥¼ í•´ì œí•©ë‹ˆë‹¤.
+    // - ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´ ë™ì  í• ë‹¹ëœ Animal ê°ì²´ë¥¼ `delete` í•©ë‹ˆë‹¤.
+    // - ìž…ë ¥ ë§¤ê°œë³€ìˆ˜: ì—†ìŒ
+    // - ë°˜í™˜ê°’: ì—†ìŒ
     ~Zoo() {
         for(int i=0; i<idx; ++i)
             delete animals[i];
     }
 };
-// TODO: ·£´ý µ¿¹°À» »ý¼ºÇÏ´Â ÇÔ¼ö
-// - 0, 1, 2 Áß ÇÏ³ªÀÇ ³­¼ö¸¦ »ý¼ºÇÏ¿© °¢°¢ Dog, Cat, Cow °´Ã¼ Áß ÇÏ³ª¸¦ µ¿ÀûÀ¸·Î »ý¼ºÇÕ´Ï´Ù.
-// - »ý¼ºµÈ °´Ã¼´Â Animal Å¸ÀÔÀÇ Æ÷ÀÎÅÍ·Î ¹ÝÈ¯µË´Ï´Ù.
-// - ÀÔ·Â ¸Å°³º¯¼ö: ¾øÀ½
-// - ¹ÝÈ¯°ª: Animal* (»ý¼ºµÈ µ¿¹° °´Ã¼ÀÇ Æ÷ÀÎÅÍ)
+// TODO: ëžœë¤ ë™ë¬¼ì„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜
+// - 0, 1, 2 ì¤‘ í•˜ë‚˜ì˜ ë‚œìˆ˜ë¥¼ ìƒì„±í•˜ì—¬ ê°ê° Dog, Cat, Cow ê°ì²´ ì¤‘ í•˜ë‚˜ë¥¼ ë™ì ìœ¼ë¡œ ìƒì„±í•©ë‹ˆë‹¤.
+// - ìƒì„±ëœ ê°ì²´ëŠ” Animal íƒ€ìž…ì˜ í¬ì¸í„°ë¡œ ë°˜í™˜ë©ë‹ˆë‹¤.
+// - ìž…ë ¥ ë§¤ê°œë³€ìˆ˜: ì—†ìŒ
+// - ë°˜í™˜ê°’: Animal* (ìƒì„±ëœ ë™ë¬¼ ê°ì²´ì˜ í¬ì¸í„°)
 Animal* createRandomAnimal(){
     int x = rand()%3;
     switch(x){
@@ -79,30 +79,30 @@ Animal* createRandomAnimal(){
 }
 
 int main(){
-    //ÇÊ¼ö±â´É
-    Animal* animal[3]; //Æ÷ÀÎÅÍ ¹è¿­ ¼±¾ð
-    //°¢ Å¬·¡½ºÀÇ ÀÚ·áÇü º¯¼ö¸¦ ¼±¾ðÇÏ°í ¹è¿­¿¡ ÀúÀå
+    //í•„ìˆ˜ê¸°ëŠ¥
+    Animal* animal[3]; //í¬ì¸í„° ë°°ì—´ ì„ ì–¸
+    //ê° í´ëž˜ìŠ¤ì˜ ìžë£Œí˜• ë³€ìˆ˜ë¥¼ ì„ ì–¸í•˜ê³  ë°°ì—´ì— ì €ìž¥
     Dog dog;
     Cat cat;
     Cow cow;
     animal[0] = &dog;
     animal[1] = &cat;
     animal[2] = &cow;
-    cout << "ÇÊ¼ö±â´É: Animal¹è¿­ ¼øÈ¸ÇÏ¸ç °¢ µ¿¹°ÀÇ ¿ïÀ½¼Ò¸® Ãâ·Â\n";
+    cout << "í•„ìˆ˜ê¸°ëŠ¥: Animalë°°ì—´ ìˆœíšŒí•˜ë©° ê° ë™ë¬¼ì˜ ìš¸ìŒì†Œë¦¬ ì¶œë ¥\n";
     cout << "========================================================================================================\n";
-    //Animal ¹è¿­À» ¼øÈ¸ÇÏ¸é¼­ µ¿¹°ÀÇ ¿ïÀ½¼Ò¸®¸¦ ³¿
+    //Animal ë°°ì—´ì„ ìˆœíšŒí•˜ë©´ì„œ ë™ë¬¼ì˜ ìš¸ìŒì†Œë¦¬ë¥¼ ëƒ„
     for(Animal* a : animal){
         a->makeSound();
     }
     cout << "========================================================================================================\n";
-    cout << "µµÀü±â´É: ·£´ý µ¿¹°À» 5¸¶¸® »ý¼ºÇØ Zoo Å¬·¡½ºÀÇ ¸â¹öº¯¼ö animals Æ÷ÀÎÅÍ ¹è¿­¿¡ ³ÖÀº µÚ ¿ïÀ½¼Ò¸® Ãâ·Â\n";
-    //µµÀü±â´É
-    srand(time(0)); //³­¼ö¸¦ ¸¸µé¾î ÁÖ±â À§ÇÑ ºÎºÐ
+    cout << "ë„ì „ê¸°ëŠ¥: ëžœë¤ ë™ë¬¼ì„ 5ë§ˆë¦¬ ìƒì„±í•´ Zoo í´ëž˜ìŠ¤ì˜ ë©¤ë²„ë³€ìˆ˜ animals í¬ì¸í„° ë°°ì—´ì— ë„£ì€ ë’¤ ìš¸ìŒì†Œë¦¬ ì¶œë ¥\n";
+    //ë„ì „ê¸°ëŠ¥
+    srand(time(0)); //ë‚œìˆ˜ë¥¼ ë§Œë“¤ì–´ ì£¼ê¸° ìœ„í•œ ë¶€ë¶„
     Zoo zoo;
-    //5¸¶¸®ÀÇ µ¿¹° ·£´ý »ý¼º
+    //5ë§ˆë¦¬ì˜ ë™ë¬¼ ëžœë¤ ìƒì„±
     for(int i=0; i<5; ++i)
         zoo.addAnimal(createRandomAnimal());
-    //Zoo Å¬·¡½ºÀÇ ¸â¹öº¯¼ö animalsÀÇ ÀúÀåµÈ µ¿¹°µéÀÇ ¿ïÀ½¼Ò¸® Ãâ·Â
+    //Zoo í´ëž˜ìŠ¤ì˜ ë©¤ë²„ë³€ìˆ˜ animalsì˜ ì €ìž¥ëœ ë™ë¬¼ë“¤ì˜ ìš¸ìŒì†Œë¦¬ ì¶œë ¥
     zoo.performActions();
     return 0;
 }
